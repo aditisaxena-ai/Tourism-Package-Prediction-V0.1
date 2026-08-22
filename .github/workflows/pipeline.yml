@@ -25,20 +25,34 @@ jobs:
       - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install -r tourism_project/requirements.txt # Use project-level requirements
 
-      - name: Run Data Processing
+      - name: Run Data Registration
         run: |
-          python tourism_project/data_processing/data_preprocessing.py
+          python tourism_project/model_building/data_register.py
 
-      - name: Run Model Training
+      - name: Run Data Preparation (Preprocessing and Split)
+        run: |
+          python tourism_project/model_building/prep.py
+
+      - name: Run Model Training and Evaluation
+        # Set MLflow tracking URI for GitHub Actions if needed.
+        # This example assumes MLflow server is accessible, or uses local artifacts.
+        # For remote tracking, add: env: MLFLOW_TRACKING_URI: ${{ secrets.MLFLOW_TRACKING_URI }}
         run: |
           python tourism_project/model_building/train.py
-
-      - name: Run Model Evaluation
-        run: |
-          python tourism_project/model_building/evaluate.py
 
       - name: Verify Deployment Files
         run: |
           python -c "import os; assert os.path.exists('tourism_project/deployment/app.py')"
+          python -c "import os; assert os.path.exists('tourism_project/deployment/requirements.txt')"
+          python -c "import os; assert os.path.exists('tourism_project/deployment/best_tourism_package_model_v1.joblib')"
+
+      - name: Commit Trained Model
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Auto-commit: Trained model from MLOps pipeline"
+          file_pattern: "tourism_project/deployment/*.joblib" # Only commit the model file
+          commit_user_name: "GitHub Actions Bot"
+          commit_user_email: "github-actions[bot]@users.noreply.github.com"
+          commit_author: "GitHub Actions Bot <github-actions[bot]@users.noreply.github.com>"
