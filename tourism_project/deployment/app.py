@@ -59,12 +59,20 @@ Gender = st.selectbox(
     ["Male", "Female"]
 )
 
-NumberOfPersonVisited = st.number_input(
-    "Number of Persons Visited",
+NumberOfPersonVisiting = st.number_input(
+    "Number of Persons Visiting",
     min_value=1,
     max_value=10,
     value=2,
     step=1
+)
+
+MonthlyIncome = st.number_input(
+    "Monthly Income",
+    min_value=0,
+    max_value=1000000,
+    value=25000,
+    step=1000
 )
 
 NumberOfFollowups = st.number_input(
