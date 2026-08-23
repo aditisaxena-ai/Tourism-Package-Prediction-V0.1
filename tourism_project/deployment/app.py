@@ -141,7 +141,7 @@ input_data = pd.DataFrame([{
     "DurationOfPitch": DurationOfPitch,
     "Occupation": Occupation,
     "Gender": Gender,
-    "NumberOfPersonVisited": NumberOfPersonVisited,
+    "NumberOfPersonVisiting": NumberOfPersonVisiting,
     "NumberOfFollowups": NumberOfFollowups,
     "ProductPitched": ProductPitched,
     "PreferredPropertyStar": PreferredPropertyStar,
@@ -151,6 +151,7 @@ input_data = pd.DataFrame([{
     "PitchSatisfactionScore": PitchSatisfactionScore,
     "OwnCar": OwnCar,
     "NumberOfChildrenVisiting": NumberOfChildrenVisiting,
+    "MonthlyIncome": MonthlyIncome,
     "Designation": Designation
 }])
 
